@@ -20,7 +20,7 @@
       <div class="header-top-right">
         <router-link to="/cart" class="header-top-cart active-icons">
           <img src="/svg/cart.svg" alt="cart">
-          <span class="header-top-cart__span" v-if="cartStore.cart.length">{{ cartStore.cart.length }}</span>
+          <span class="header-top-cart__span" v-if="cartStore.cart.length || localCartStore.length">{{ localCartStore.length || cartStore.cart.length }}</span>
         </router-link>
         <router-link to="/" class="header-top-user active-icons">
           <img src="/svg/user.svg" alt="user">
@@ -52,6 +52,7 @@ import { ref, onMounted } from 'vue';
 import { useCartStore } from '@/store/cart.js'
 import api from '@/api';
 
+const localCartStore = JSON.parse(localStorage.getItem('cartStorage'))
 const cartStore = useCartStore()
 const isOpenMobileMenu = ref(false);
 const iSOpenSearch = ref(false)

@@ -1,7 +1,7 @@
 <template>
-<div class="cart" v-if="cartStore.cart.length">
+<div class="cart" v-if="cartStore.cart.length || localeCartStore">
   <h3 class="cart-title">Your shopping cart</h3>
-  <div class="cart-block">
+  <div class="cart-block" v-if="cartStore.cart.length">
     <div class="cart-block-header">
       <p class="cart-block-header__title">Product</p>
       <p class="cart-block-header__title">Quantity</p>
@@ -44,6 +44,49 @@
       </div>
     </div>
   </div>
+  <div class="cart-block" v-else-if="localeCartStore.length">
+    <div class="cart-block-header">
+      <p class="cart-block-header__title">Product</p>
+      <p class="cart-block-header__title">Quantity</p>
+      <p class="cart-block-header__title">Total</p>
+    </div>
+    <div class="cart-block-items">
+      <div class="cart-block-item" v-for="(item, i) in localeCartStore" :key="i">
+        <div class="cart-block-item__left">
+          <div class="cart-block-item__left-image">
+            <img :src="item.image" :alt="item.title">
+          </div>
+          <div class="cart-block-item__left-info">
+            <h4 class="cart-block-item__left-title">{{ item.title }}</h4>
+            <!-- <div class="cart-block-item__left-description">{{ item }}</div> -->
+            <p class="cart-block-item__left-price">£{{ item.price }}</p>
+          </div>
+        </div>
+        <div class="product-right-quantity">
+          <div class="product-right-quantity__block">
+            <div class="product-right-quantity__image" @click="item.count === 1 ? item.count : item.count--">
+              <img src="/svg/minus.svg" alt="minus">
+            </div>
+            <div class="product-right-quantity__value">{{ item.count }}</div>
+            <div class="product-right-quantity__image" @click="item.count === 3 ? item.count : item.count++">
+              <img src="/svg/plus.svg" alt="plus">
+            </div>
+          </div>
+      </div>
+        <div class="cart-block-item__price">£{{ item.total = item.price * item.count }}</div>
+      </div>
+    </div>
+    <div class="cart-block-footer">
+      <div class="cart-block-footer__content">
+        <div class="cart-block-footer__total">
+          <p class="cart-block-footer__total-text">Subtotal</p>
+          <!-- <span class="cart-block-footer__total-price" v-if="totalPrice2 > 0">£{{ totalPrice2 * cartStore.cart.length }}</span> -->
+          <span class="cart-block-footer__total-price">£{{ localeCartStore.totalPrice }}</span>
+        </div>
+        <ui-button :color="'#ffffff'">Go to checkout</ui-button>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="cart-empty" v-else>
       You cart empty. Go to shop!
@@ -56,6 +99,7 @@ import { ref } from 'vue';
 import { useCartStore } from '@/store/cart.js'
 
 const cartStore = useCartStore()
+const localeCartStore = JSON.parse(localStorage.getItem('cartStorage'))
 
 </script>
 
