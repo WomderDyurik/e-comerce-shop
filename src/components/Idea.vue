@@ -13,7 +13,7 @@
       :btnBackground="'rgba(249, 249, 249, 0.15)'"
       :btnColor="'#ffffff'"
       :typeButton="'link'"
-      :linkPath="'/allproducts'"/>
+      :linkPath="'/products'"/>
       <div class="idea-image">
         <img src="/image/idea.jpg" alt="idea">
       </div>

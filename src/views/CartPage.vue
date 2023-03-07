@@ -11,10 +11,10 @@
       <div class="cart-block-item" v-for="(item, i) in cartStore.cart" :key="i">
         <div class="cart-block-item__left">
           <div class="cart-block-item__left-image">
-            <img :src="item.image" :alt="item.name">
+            <img :src="item.image" :alt="item.title">
           </div>
           <div class="cart-block-item__left-info">
-            <h4 class="cart-block-item__left-title">{{ item.name }}</h4>
+            <h4 class="cart-block-item__left-title">{{ item.title }}</h4>
             <!-- <div class="cart-block-item__left-description">{{ item }}</div> -->
             <p class="cart-block-item__left-price">£{{ item.price }}</p>
           </div>
@@ -165,9 +165,14 @@ const cartStore = useCartStore()
     }
   }
   &-empty {
+    margin: 100px 0 0;
     font-size: 48px;
     text-align: center;
-    height: 300px;
+    height: 50vh;
+    @media screen and (max-width: 390px) {
+      font-size: 24px;
+      margin: 30px 0 0;
+  }
   }
 }
 .product-right {
