@@ -1,17 +1,18 @@
 <template>
       <div class="products-item">
-        <router-link :to="`products/${id}`" class="products-item__image">
+        <router-link :to="`products/${id}`" replace class="products-item__image">
           <img :src="image" :alt="name">
         </router-link>
-        <router-link :to="`products/${id}`" class="products-item__title">{{ name }}</router-link>
+        <router-link :to="`products/${id}`" replace class="products-item__title" >{{ name }}</router-link>
         <span class="products-item__cost">£{{ cost }}</span>
       </div>
 </template>
 
 <script setup>
+  import { useRoute,useRouter } from 'vue-router';
   const props = defineProps( {
     id: {
-      type: String,
+      type: Number,
       required: true,
     },
     image: {
@@ -27,6 +28,7 @@
       required: true
     },
   })
+  const router = useRouter();
 </script>
 
 <style lang="scss" scoped>
@@ -54,6 +56,7 @@
       &__image {
         & img {
           max-width: 100%;
+          height: 350px;
           object-fit: cover;
         @media screen and (max-width: 390px) {
           max-width: 163px;

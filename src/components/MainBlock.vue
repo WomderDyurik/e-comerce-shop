@@ -5,7 +5,7 @@
     :text="'Shop the new Spring 2022 collection today'"
     :link="'View collection'"
     :typeButton="'link'"
-    :linkPath="'/allproducts'"
+    :linkPath="'/products'"
     />
     <div class="main-image">
       <img src="/image/main.jpg" alt="main">

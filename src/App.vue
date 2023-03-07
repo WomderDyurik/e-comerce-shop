@@ -16,6 +16,8 @@ import Footer from '@/components/layouts/Footer.vue';
 .container {
   width: 1440px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
   @media screen and (max-width: 390px) {
     width: 99%;
   }

@@ -4,18 +4,18 @@
       <img :src="product.image" :alt="product.name">
     </div>
     <div class="product-right">
-      <h3 class="product-right-title">{{ product.name }}</h3>
+      <h3 class="product-right-title">{{ product.title }}</h3>
       <span class="product-right-price">£{{ product.price }}</span>
       <div class="product-right-description">
         <h4 class="product-right-description__title">Product description</h4>
-        <div class="product-right-description__text" v-html="product.description"></div>
+        <p class="product-right-description__text" >{{ product.description}}</p>
       </div>
-      <div class="product-right-params">
+      <!-- <div class="product-right-params">
         <div class="product-right-param" v-for="(param, i) in product.params" :key="i">
           <div class="product-right-param__title">{{ param.title }}:</div>
           <div class="product-right-param__text">{{ param.value }}</div>
         </div>
-      </div>
+      </div> -->
       <div class="product-right-quantity">
         <div class="product-right-quantity-left">
           <h4 class="product-right-quantity__title">Quantity</h4>

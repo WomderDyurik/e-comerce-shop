@@ -27,79 +27,50 @@
         </router-link>
       </div>
     </div>
-    <div class="header-bottom">
-      <div class="header-bottom-links">
-        <router-link
-        v-for="(link, i) in links" :key="i"
-        :to="link.path"
-        class="header-bottom-link"
-        >
-        {{ link.name }}
-      </router-link>
-      </div>
-    </div>
     <div class="header-menu__mobile" v-if="isOpenMobileMenu">
       <div class="header-menu__mobile-close" @click="isOpenMobileMenu = !isOpenMobileMenu">
         <img src="/svg/close.svg" alt="close">
       </div>
       <router-link
-        v-for="(link, i) in links" :key="i"
-        :to="link.path"
+        :to="'/products'"
         class="header-menu__mobile-link"
         >
-        {{ link.name }}
+        Products
+      </router-link>
+      <router-link
+        :to="'/about'"
+        class="header-menu__mobile-link"
+        >
+        About
       </router-link>
     </div>
   </header>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useCartStore } from '@/store/cart.js'
-
-const links = [
-  {
-    name: 'Plant pots',
-    path: '/allproducts'
-  },
-  {
-    name: 'Ceramics',
-    path: '/allproducts'
-  },
-  {
-    name: 'Tables',
-    path: '/allproducts'
-  },
-  {
-    name: 'Chairs',
-    path: '/allproducts'
-  },
-  {
-    name: 'Crockery',
-    path: '/allproducts'
-  },
-  {
-    name: 'Tableware',
-    path: '/allproducts'
-  },
-  {
-    name: 'Cutlery',
-    path: '/allproducts'
-  },
-];
+import api from '@/api';
 
 const cartStore = useCartStore()
 const isOpenMobileMenu = ref(false);
 const iSOpenSearch = ref(false)
 const searchProduct = ref('')
+const categories = ref('')
+
+
+
+onMounted(async () => {
+  categories.value = await api.getCategories();
+})
 </script>
 
 <style lang="scss" scoped>
 .header {
-  height: 132px;
+  height: 70px;
   position: relative;
   @media screen and (max-width: 390px) {
-      height: 70px;
+      height: 50px;
   }
   &-menu__mobile {
     @media screen and (max-width: 390px) {

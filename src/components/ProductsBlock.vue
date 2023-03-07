@@ -4,7 +4,7 @@
       <Product v-for="product in products"
         :key="product.id"
         :id="product.id"
-        :image="product.img"
+        :image="product.image"
         :name="product.title"
         :cost="product.price"
         />
@@ -13,7 +13,7 @@
     :type="'link'"
     :background="'#F9F9F9'"
     :color="'var(--darkPrimary)'"
-    :path="'/allproducts'">View collection</ui-button>
+    :path="'/products'">View collection</ui-button>
   </div>
 </template>
 
