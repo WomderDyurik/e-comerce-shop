@@ -1,7 +1,7 @@
 <template>
-<div class="cart" v-if="cartStore.cart.length || localeCartStore">
+<div class="cart" v-if="arr.length || localeCartStore">
   <h3 class="cart-title">Your shopping cart</h3>
-  <div class="cart-block" v-if="cartStore.cart.length">
+  <div class="cart-block" v-if="arr.length">
     <div class="cart-block-header">
       <p class="cart-block-header__title">Product</p>
       <p class="cart-block-header__title">Quantity</p>
@@ -30,7 +30,12 @@
             </div>
           </div>
       </div>
-        <div class="cart-block-item__price">£{{ item.total = item.price * item.count }}</div>
+      <div class="cart-block-item__price">
+          <span>£{{ item.price * item.count }}</span>
+          <div class="delete-item">
+            <img src="/svg/close.svg" alt="close" @click="cartStore.deletCartItem(item)">
+          </div>
+        </div>
       </div>
     </div>
     <div class="cart-block-footer">
@@ -38,7 +43,7 @@
         <div class="cart-block-footer__total">
           <p class="cart-block-footer__total-text">Subtotal</p>
           <!-- <span class="cart-block-footer__total-price" v-if="totalPrice2 > 0">£{{ totalPrice2 * cartStore.cart.length }}</span> -->
-          <span class="cart-block-footer__total-price">£{{ cartStore.totalPrice }}</span>
+          <span class="cart-block-footer__total-price">£{{ totalPrice(cartStore.cart) }}</span>
         </div>
         <ui-button :color="'#ffffff'">Go to checkout</ui-button>
       </div>
@@ -73,7 +78,12 @@
             </div>
           </div>
       </div>
-        <div class="cart-block-item__price">£{{ item.total = item.price * item.count }}</div>
+        <div class="cart-block-item__price">
+          <span>£{{ item.price * item.count }}</span>
+          <div class="delete-item">
+            <img src="/svg/close.svg" alt="close" @click="cartStore.deletCartItem">
+          </div>
+        </div>
       </div>
     </div>
     <div class="cart-block-footer">
@@ -81,7 +91,7 @@
         <div class="cart-block-footer__total">
           <p class="cart-block-footer__total-text">Subtotal</p>
           <!-- <span class="cart-block-footer__total-price" v-if="totalPrice2 > 0">£{{ totalPrice2 * cartStore.cart.length }}</span> -->
-          <span class="cart-block-footer__total-price">£{{ localeCartStore.totalPrice }}</span>
+          <span class="cart-block-footer__total-price">£{{ totalPrice(localeCartStore) }}</span>
         </div>
         <ui-button :color="'#ffffff'">Go to checkout</ui-button>
       </div>
@@ -95,11 +105,25 @@
 
 <script setup>
 import UiButton from '@/components/UI/UiButton.vue';
-import { ref } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { useCartStore } from '@/store/cart.js'
 
 const cartStore = useCartStore()
+const arr = cartStore.cart
 const localeCartStore = JSON.parse(localStorage.getItem('cartStorage'))
+const arrLength = ref(arr.length)
+const totalPrice = (arr) => {
+  let sum = 0
+      if(arr.length > 1){
+        for(let i = 0; i < arr.length; i++) {
+          sum += arr[i].price * arr[i].count
+        }
+        return sum.toFixed(2)
+      } else if (arr.length = 1) {
+        let total = (arr[0].price * arr[0].count)
+        return total.toFixed(2)
+      }
+    }
 
 </script>
 
@@ -180,6 +204,9 @@ const localeCartStore = JSON.parse(localStorage.getItem('cartStorage'))
         }
       }
       &__price {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         @media screen and (max-width: 390px) {
 
   }
@@ -212,7 +239,7 @@ const localeCartStore = JSON.parse(localStorage.getItem('cartStorage'))
     margin: 100px 0 0;
     font-size: 48px;
     text-align: center;
-    height: 50vh;
+    height: 100vh;
     @media screen and (max-width: 390px) {
       font-size: 24px;
       margin: 30px 0 0;

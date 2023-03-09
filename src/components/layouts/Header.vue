@@ -20,7 +20,7 @@
       <div class="header-top-right">
         <router-link to="/cart" class="header-top-cart active-icons">
           <img src="/svg/cart.svg" alt="cart">
-          <span class="header-top-cart__span" v-if="cartStore.cart.length || localCartStore.length">{{ localCartStore.length || cartStore.cart.length }}</span>
+          <span class="header-top-cart__span" v-if="cartStore.cart.length">{{ cartStore.cart.length }}</span>
         </router-link>
         <router-link to="/" class="header-top-user active-icons">
           <img src="/svg/user.svg" alt="user">
@@ -34,12 +34,14 @@
       <router-link
         :to="'/products'"
         class="header-menu__mobile-link"
+        @click="isOpenMobileMenu = !isOpenMobileMenu"
         >
         Products
       </router-link>
       <router-link
         :to="'/about'"
         class="header-menu__mobile-link"
+        @click="isOpenMobileMenu = !isOpenMobileMenu"
         >
         About
       </router-link>
