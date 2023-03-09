@@ -1,11 +1,13 @@
 <template>
-<ProductPageItem :product="currentProduct"/>
+<Loader v-if="loading"/>
+<ProductPageItem v-else :product="currentProduct"/>
 <AboutBrand />
 <Idea/>
 <Email/>
 </template>
 
 <script setup>
+import Loader from '@/components/UI/Loader.vue';
 import ProductPageItem from '@/components/ProductPageItem.vue';
 import AboutBrand from '@/components/AboutBrand.vue';
 import Idea from '@/components/Idea.vue';
@@ -20,11 +22,13 @@ const router = useRouter();
 const productId = ref("")
 const currentProduct = ref({})
 const popularProducts = ref([])
+const loading = ref(true)
 
 onMounted(async () => {
   productId.value = route.params.id
   currentProduct.value = await api.getProduct(productId.value)
   popularProducts.value = await api.getPopularProducts();
+  loading.value = false;
 })
 </script>
 

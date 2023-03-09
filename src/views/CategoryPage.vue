@@ -28,7 +28,8 @@
           @click="seeAll++">All products</ui-button>
         </div>
     </div>
-    <div class="all-products-page-main">
+    <Loader v-if="loading"/>
+    <div class="all-products-page-main" v-else>
       <ProductsBlock  :products="allProducts"/>
   </div>
   </div>
@@ -69,10 +70,18 @@
   .all-products-page {
     padding: 0 80px;
     display: grid;
+    @media screen and (max-width: 390px) {
+      padding: 0 10px;
+    }
     &-links {
       display: flex;
       justify-content: center;
       align-items: center;
+      @media screen and (max-width: 390px) {
+          flex-direction: column;
+          justify-content: start;
+          align-items: start;
+    }
     }
     &-link {
       margin-right: 40px;
@@ -95,6 +104,10 @@
         font-weight: 400;
         font-size: 36px;
         line-height: 140%;
+        @media screen and (max-width: 390px) {
+          margin: 20px 0;
+          font-size: 24px;
+    }
       }
     }
   }
@@ -120,6 +133,7 @@
         @media screen and (max-width: 390px) {
           grid-template-columns: repeat(2, minmax(100px, auto));
           justify-content: none;
+          gap: 10px;
     }
       }
     }

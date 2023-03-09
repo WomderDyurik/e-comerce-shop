@@ -34,12 +34,14 @@
       <router-link
         :to="'/products'"
         class="header-menu__mobile-link"
+        @click="isOpenMobileMenu = !isOpenMobileMenu"
         >
         Products
       </router-link>
       <router-link
         :to="'/about'"
         class="header-menu__mobile-link"
+        @click="isOpenMobileMenu = !isOpenMobileMenu"
         >
         About
       </router-link>
@@ -52,6 +54,7 @@ import { ref, onMounted } from 'vue';
 import { useCartStore } from '@/store/cart.js'
 import api from '@/api';
 
+const localCartStore = JSON.parse(localStorage.getItem('cartStorage'))
 const cartStore = useCartStore()
 const isOpenMobileMenu = ref(false);
 const iSOpenSearch = ref(false)
